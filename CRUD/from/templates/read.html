@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Student List</title>
+
+    <style>
+      body {
+    background: linear-gradient(120deg, #1e3c72, #2a5298);
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    animation: bgmove 6s infinite alternate;
+}
+
+@keyframes bgmove {
+    from { background-position: left; }
+    to { background-position: right; }
+}
+
+.container {
+    background: #ffffff;
+    padding: 25px 30px;
+    border-radius: 10px;
+    width: 80%;
+    max-width: 900px;
+    animation: fadeIn 1s ease;
+    box-shadow: 0px 0px 20px rgba(0,0,0,0.2);
+}
+
+@keyframes fadeIn {
+    from {opacity: 0; transform: scale(0.9);}
+    to {opacity: 1; transform: scale(1);}
+}
+
+h2 {
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.add-btn {
+    text-align: right;
+    margin-bottom: 10px;
+}
+
+.add-btn a {
+    background: #2a5298;
+    color: white;
+    padding: 8px 14px;
+    border-radius: 5px;
+    display: inline-block;
+    font-weight: bold;
+    transition: 0.3s ease;
+}
+
+.add-btn a:hover {
+    background: #1e3c72;
+    transform: scale(1.1);
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th {
+    background: #2a5298;
+    color: white;
+    padding: 12px;
+}
+
+td {
+    padding: 10px;
+    text-align: center;
+}
+
+tr {
+    transition: 0.3s;
+}
+
+tr:hover {
+    background: #f0f0f0;
+    transform: scale(1.01);
+}
+
+a {
+    color: #2a5298;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+a:hover {
+    color: red;
+}
+
+.empty {
+    text-align: center;
+    color: gray;
+    font-style: italic;
+}
+
+    </style>
+</head>
+<body>
+
+<div class="container">
+<h2>Student List</h2>
+
+<div class="add-btn">
+    <a href="{% url 'create' %}">+ Add Student</a>
+</div>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Age</th>
+    <th>Email</th>
+    <th>Actions</th>
+  </tr>
+
+  {% for student in students %}
+  <tr>
+    <td>{{ student.name }}</td>
+    <td>{{ student.age }}</td>
+    <td>{{ student.email }}</td>
+    <td>
+      <a href="{% url 'update' student.pk %}">Edit</a> |
+      <a href="{% url 'delete' student.pk %}">Delete</a>
+    </td>
+  </tr>
+
+  {% empty %}
+  <tr>
+    <td colspan="4" class="empty">No students found</td>
+  </tr>
+  {% endfor %}
+</table>
+</div>
+
+
+
+
+</body>
+</html>
